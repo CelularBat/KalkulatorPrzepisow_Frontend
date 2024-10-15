@@ -1,0 +1,7 @@
+.p-column-filter-clear-button , .p-column-filter-menu-button{
+    display: none;
+}
+
+.p-component{
+    font-size: 1.1vw;
+}
