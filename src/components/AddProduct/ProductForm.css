@@ -10,7 +10,7 @@
     margin-right:40px;
     background: linear-gradient(90deg, #e27474, #D5D531, #008000);
     width: auto;
-    max-width: 340px;
+    max-width: 420px;
     border-radius: 25px;
     font-size: 15px;
   }
@@ -46,6 +46,7 @@
   
   .form > input[type=number] {
     width: 50%;
+    max-width: 100px;
   }
   
   .btn_form {

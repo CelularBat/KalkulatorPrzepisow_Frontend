@@ -6,8 +6,16 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "./PrimeProductsTable.css"
 
 
-function PrimeProductsTable({TableData,onClickEdit,onClickDelete}) {
-    const dataLabels = {
+function PublicProducts_PrimeTable({TableData,defaultRows,
+    IsInRecipeMode, onClickAddToRecipe}) {
+
+    const dataLabels = IsInRecipeMode?{
+        category: {label:"Kategoria" ,hasFilter:true},
+        name: {label:"Nazwa" ,hasFilter:true},
+        brand: {label:"Marka" ,hasFilter:true},
+        author:{label:"Autor" ,hasFilter:true}
+    }
+    :{
         category: {label:"Kategoria" ,hasFilter:true},
         name: {label:"Nazwa" ,hasFilter:true},
         brand: {label:"Marka" ,hasFilter:true},
@@ -18,53 +26,49 @@ function PrimeProductsTable({TableData,onClickEdit,onClickDelete}) {
         sugar: {label:"Cukr" ,hasFilter:false},
         protein:{label: "Biał" ,hasFilter:false}, 
         fiber:{label: "Błon" ,hasFilter:false}, 
-        salt: {label:"Sól" ,hasFilter:false}, 
-        public: {label:"Pub" ,hasFilter:false} 
-    };
+        salt: {label:"Sól" ,hasFilter:false},
+        author:{label:"Autor" ,hasFilter:true}
+    }
 
-    let filters = {};
-    const builtFiltersOptions = Object.entries(dataLabels).forEach(([dataKey,keys])=>{
-       if ( keys.hasFilter ) {
-            filters[dataKey] = { value: null, matchMode: FilterMatchMode.CONTAINS };
-       }
-    });
+
+    const [filters, setFilters] = React.useState();
 
     
-    const initColumns = Object.entries(dataLabels).map(([dataKey,keys])=>{
+    const initColumns = Object.entries(dataLabels)
+    .map(([dataKey,keys])=>{
        return <Column key={dataKey} field={dataKey} header={keys.label} sortable
        {...(keys.hasFilter && {filter: true, filterPlaceholder:"filtruj", 
         filterMatchMode:FilterMatchMode.CONTAINS, matchMode:"contains" })} 
-        
        />
     })
     
+    const actionRecipeColumnBody = (rowData,options)=>
+        <AddToRecipeTemplate rowData={rowData}
+        onClickAddToRecipe={onClickAddToRecipe}
+        />
+
     return (
     <DataTable value={TableData} 
     stripedRows  size="small" showGridlines 
-    paginator rows={2} rowsPerPageOptions={[2,5, 10, 25, 50]}
+    paginator rows={defaultRows} rowsPerPageOptions={[5, 10, 25, 50]}
     filterDisplay="row" filters={filters}
     selectionMode="single"
-    >
-        <Column header="" body={(rowData,options)=>
-            <ActionKeysTemplate rowData={rowData}
-            onClickEdit={onClickEdit} onClickDelete={onClickDelete}
-            />} 
-        />
+    >   
+        {IsInRecipeMode && <Column header="Dodaj" body={ actionRecipeColumnBody} />}
         {initColumns}
+        
     </DataTable>
     );
 }
 
 
-
-const ActionKeysTemplate = ({rowData,onClickEdit,onClickDelete})=>{
+const AddToRecipeTemplate = ({rowData,onClickAddToRecipe})=>{
     return(
-        <>
-            <button onClick={()=>onClickEdit(rowData)}>✎</button>
-            <button onClick={()=>onClickDelete(rowData)}>X</button>
-        </>
-        
+        <div>
+             <button className="UserTable--button addToRecipe-button" onClick={()=>onClickAddToRecipe(rowData)}>+</button>
+        </div>
     )
 }
 
-export default PrimeProductsTable;
+
+export default PublicProducts_PrimeTable;

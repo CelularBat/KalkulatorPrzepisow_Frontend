@@ -1,0 +1,185 @@
+
+:root {
+    /* Color Variables */
+    --RecipeForm-primary-bg-color: #156604;
+    --RecipeForm-secondary-bg-color: #243b5f;
+    --RecipeForm-hover-bg-color: #ce9c13;
+    --RecipeForm-text-color: rgb(207, 236, 137);
+    --RecipeForm-border-color: rgb(146, 223, 123);
+
+    /* Font Variables */
+    --RecipeForm-font-family: 'Arial', sans-serif;
+    --RecipeForm-font-size-small: 14px;
+    --RecipeForm-font-size-large: 1.5rem;
+}
+
+.RecipeForm {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.RecipeForm .info-container {
+    display: grid;
+    grid-template-columns: 20% 77%;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: 10px;
+    width: 100%;
+}
+
+.RecipeForm .info-container .description-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: center;
+}
+
+.RecipeForm .info-container .description-label {
+    writing-mode: sideways-lr;
+    background-color: var(--RecipeForm-primary-bg-color);
+    color: var(--RecipeForm-text-color);
+    padding: 5px;
+    font-family: var(--RecipeForm-font-family);
+    font-size: var(--RecipeForm-font-size-small);
+    font-weight: bold;
+    border: 1px solid var(--RecipeForm-border-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    z-index: 1;
+}
+
+.RecipeForm .description-container > textarea {
+    min-height: 100px;
+    min-width: 90%;
+    flex-grow: 1;
+    width: 100%;
+    background-color: var(--RecipeForm-secondary-bg-color);
+    color: var(--RecipeForm-text-color);
+    padding: 10px;
+    border: 1px solid var(--RecipeForm-border-color);
+    font-family: var(--RecipeForm-font-family);
+    font-size: var(--RecipeForm-font-size-small);
+    resize: vertical;
+}
+
+.RecipeForm .title-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    align-self: center;
+    
+}
+
+.RecipeForm .title-label {
+    background-color: var(--RecipeForm-primary-bg-color);
+    color: var(--RecipeForm-text-color);
+    padding: 15px;
+    font-family: var(--RecipeForm-font-family);
+    font-size: var(--RecipeForm-font-size-large);
+    font-weight: bold;
+    border: 1px solid var(--RecipeForm-border-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    z-index: 1;
+}
+
+.RecipeForm .title-container > input {
+    flex-grow: 1;
+    width: 100%;
+    background-color: var(--RecipeForm-secondary-bg-color);
+    color: var(--RecipeForm-text-color);
+    padding: 8px;
+    border: 1px solid var(--RecipeForm-border-color);
+    font-family: var(--RecipeForm-font-family);
+    font-size: var(--RecipeForm-font-size-small);
+}
+.RecipeForm .AddPhotoURL > button {
+    background-color: var(--RecipeForm-primary-bg-color);
+    color: var(--RecipeForm-text-color);
+    padding: 10px 20px;
+    font-family: var(--RecipeForm-font-family);
+    font-size: var(--RecipeForm-font-size-small);
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+
+    /* 3D effect */
+    border: 1px solid var(--RecipeForm-border-color);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4), -2px -2px 5px rgba(255, 255, 255, 0.15), inset -1px -1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+/* Active state to simulate pressing the button */
+.RecipeForm .AddPhotoURL > button:active {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(2px);
+}
+
+/* Hover effect for the button */
+.RecipeForm .AddPhotoURL > button:hover {
+    background-color: var(--RecipeForm-hover-bg-color);
+    color: #e0e0e0;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), -3px -3px 6px rgba(255, 255, 255, 0.25);
+}
+
+
+
+/* RecipeSum */
+
+.RecipeSum {
+    width: 100%;
+    background-color: #1a2b4c; 
+    margin-block: 10px;
+}
+
+.RecipeSum th, 
+.RecipeSum td {
+    border: 1px solid black; 
+    padding: 10px;
+    text-align: center; 
+    color: white; 
+}
+
+.RecipeSum thead {
+    background-color: #1f3b5c; 
+}
+
+.RecipeSum th {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.RecipeSum tbody tr:nth-child(even) {
+    background-color: #243b5f; 
+}
+
+.RecipeSum tbody td:hover {
+    background-color: #2a4a70; 
+}
+
+.RecipeSum td {
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+}
+
+.RecipeSum th,
+.RecipeSum td {
+    border: 1px solid black; 
+}
+
+.btn-recipe-container{
+    width:100%;
+}
+
+.btn-recipe{
+    width:100%;
+}

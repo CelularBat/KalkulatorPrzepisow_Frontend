@@ -1,8 +1,16 @@
 
 .AddProduct--form-container{
   padding-left: 20px;
+  padding-top: 10px;
 }
 
 .AddProduct--tables-container{
   padding-right: 20px;
 }
+
+.RecipeForm{
+  padding:3%;
+}
+
+
+

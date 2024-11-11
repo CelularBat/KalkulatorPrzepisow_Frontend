@@ -1,0 +1,45 @@
+/* ShowMessage.css */
+
+.ShowMessage {
+    position: fixed;
+    bottom: -100px; /* Start below the screen */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    padding: 20px;
+    background-color: #28a745; /* Green background */
+
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D look */
+    opacity: 0;
+    animation: slideUp 5s ease forwards;
+
+    font-style: italic;
+    font-size: 2em;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-family: 'Cursive', 'Segoe Script', 'Brush Script MT', sans-serif;
+    letter-spacing: 0.05em; 
+    word-spacing: 0.1em; 
+  }
+  
+  @keyframes slideUp {
+    0% {
+      bottom: -100px;
+      opacity: 0;
+    }
+    30% {
+      bottom: 50%;
+      opacity: 1;
+    }
+    70% {
+      bottom: 50%;
+      opacity: 1;
+    }
+    100% {
+      bottom: 100%;
+      opacity: 0;
+    }
+  }
+  

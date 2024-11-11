@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import './App.css'
 
 import Flex from '@react-css/flex';
 
 import Navbar from './components/navbar/Navbar';
 import MainContent from './components/MainContent';
-import Footer from './components/Footer';
+import Footer from './components/Footer/Footer';
+
+import {GlobalContextProvider} from './context/GlobalContext';
+import ShowMessage from './components/Global/ShowMessage';
 
 
 function App() {
@@ -15,7 +17,17 @@ function App() {
     setActivePageIdx(key)
   }
 
+  // widgets that are not statis part of the page body
+  const globalWidgets = (
+    <>
+      <ShowMessage />
+    </>
+  );
   return (
+  <GlobalContextProvider>
+
+    {globalWidgets}
+
      <Flex flexDirection="column">
         
         <Flex.Item>
@@ -29,6 +41,7 @@ function App() {
         </Flex.Item>
        
       </Flex>
+  </GlobalContextProvider>
   )
 }
 

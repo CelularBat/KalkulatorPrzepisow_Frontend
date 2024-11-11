@@ -1,7 +1,7 @@
 import React from 'react';
-import './ProductForm2.css';
+import './ProductForm.css';
 
-function ProductForm2({IsInEditMode,IsMinimised,EditRowData}) {
+function ProductForm2({IsProductFormInEditMode,IsMinimised,EditRowData,onProductFormSubmit}) {
   const initialDataState = {
     name: "",
     brand: "",
@@ -21,8 +21,10 @@ function ProductForm2({IsInEditMode,IsMinimised,EditRowData}) {
   const [FormData, setFormData] = React.useState( initialDataState);
 
   React.useEffect(()=>{
-    setFormData(EditRowData);
-  },[IsInEditMode,EditRowData])
+    if (IsProductFormInEditMode && EditRowData ){
+      setFormData(EditRowData);
+    }
+  },[IsProductFormInEditMode,EditRowData])
 
 
 
@@ -64,22 +66,16 @@ function ProductForm2({IsInEditMode,IsMinimised,EditRowData}) {
     setFormData(initialDataState);
   }
 
-  function submitForm(event){
-    event.preventDefault();
-    // API call
-    console.log("submitted");
-  }
+
 
   
-
-
   return(
-    <ProductFormRender2 {...{FormData,handleChange,cleanForm,IsInEditMode,submitForm}} />
+    <ProductFormRender2 {...{FormData,handleChange,cleanForm,IsProductFormInEditMode,onProductFormSubmit}} />
   );
 }
    
 
-const ProductFormRender2 = ({FormData,handleChange,cleanForm,IsInEditMode,submitForm})=>{
+const ProductFormRender2 = ({FormData,handleChange,cleanForm,IsProductFormInEditMode,onProductFormSubmit})=>{
   const ID = React.useId();
 
   // This function is needed for firefox, because this browser allows writing anything to input type="number"
@@ -96,7 +92,7 @@ const ProductFormRender2 = ({FormData,handleChange,cleanForm,IsInEditMode,submit
   return (
  
     
-  <form className="form" method="post" action="" target="_blank" onSubmit={submitForm} >
+  <form className="form" method="post" action="" target="_blank" onSubmit={onProductFormSubmit} >
     <label htmlFor="name">
       <button type="button" className="btn_form" onClick={cleanForm} >Wyczyść</button>&nbsp;&nbsp;*Nazwa: &nbsp;
     </label>
@@ -152,7 +148,8 @@ const ProductFormRender2 = ({FormData,handleChange,cleanForm,IsInEditMode,submit
     <input type="text"  name="link" id="link" onChange={handleChange}/>
     
     <input type="submit" className="btn_form" 
-    value={IsInEditMode ? "Potwierdź edycję" : "Dodaj"}
+    value={IsProductFormInEditMode ? "Potwierdź edycję" : "Dodaj"}
+    onClick={(event)=>{onProductFormSubmit(event,FormData)}}
     />
     
   

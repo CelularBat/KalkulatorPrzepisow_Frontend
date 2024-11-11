@@ -18,6 +18,10 @@ const API_URLs = {
         update:  {url:'/api/updaterecipe',method:"POST"},
         remove:  {url:'/api/removerecipe',method:"POST"}
     },
+    recipes: {
+        getUserRecipes: {url: "/api/getuserr",method:"GET"},
+        getPublicRecipes: {url: "/api/getpubr",method:"GET"}
+    },
     user: {
         login:  {url:'/api/login',method:"POST"},
         logout:  {url:'/api/logout',method:"POST"},

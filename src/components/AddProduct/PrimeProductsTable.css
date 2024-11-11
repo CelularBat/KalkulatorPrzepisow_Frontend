@@ -1,7 +1,49 @@
-.p-column-filter-clear-button , .p-column-filter-menu-button{
+.p-datatable-table{
+    opacity:70%;
+}
+
+.p-column-filter-clear-button , 
+.p-column-filter-menu-button
+{
     display: none;
 }
 
 .p-component{
     font-size: 1.1vw;
+}
+.p-fluid .p-column-filter-element{
+    min-width: 100%;
+}
+
+
+.UserTable--Public-icon{
+    width:25px;
+    height:25px;
+}
+
+.UserTable--button{
+    width:1vw;
+    height:2vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: bisque;
+    margin: auto;
+}
+
+.UserTable--button.edit-button{
+    color: green;
+    
+}
+
+.UserTable--button.delete-button{
+    color: red;
+    
+}
+
+.UserTable--button.addToRecipe-button{
+    color: green;
+    font-weight: bolder;
+    font-size: large;
 }
