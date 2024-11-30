@@ -1,6 +1,7 @@
 import React from "react";
 import "./AddPhotoUrl.css"
-import IMG_trashbin from "../../assets/trashbin.svg"
+
+import IMG_trashbin from "../../../assets/trashbin.svg"
 
 const AddPhotoURL = ({PhotoURL,handleAddPhoto})=>{
     const [IsAddFormOn,setIsAddFormOn] = React.useState(false);

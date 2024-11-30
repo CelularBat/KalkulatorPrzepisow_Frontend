@@ -3,10 +3,10 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import "./PrimeProductsTable.css"
+import "../../common/PrimeTable.css"
 
-import IMG_Padlock from "../../assets/padlock.png";
-import IMG_Public from "../../assets/public.png";
+import IMG_Padlock from "../../../assets/padlock.png";
+import IMG_Public from "../../../assets/public.png";
 
 
 function UserProducts_PrimeTable({TableData,defaultRows,

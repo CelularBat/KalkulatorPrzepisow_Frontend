@@ -10,8 +10,8 @@
 .pg {
     font-style: italic;
     color: green;
-    font-weight: bold; /* Make font bolder */
-    font-size: 2vw; /* Twice the normal size */
+    font-weight: bold; 
+    font-size: 2vw; 
     font-family: 'Cursive', 'Segoe Script', 'Brush Script MT', sans-serif; /* Handwriting-style fonts */
     margin:auto;
     cursor:grab;
@@ -20,4 +20,8 @@
 .pg.active{
   color: yellow;
   font-size: 2.1vw;
+}
+.loginForm{
+  flex:0.5;
+  margin-right:10px
 }

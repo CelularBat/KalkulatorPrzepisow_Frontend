@@ -1,10 +1,13 @@
+// Depreciated, not used 
+// AddProduct/AddProduct.jsx handles both pages
+
 import React from 'react';
 
-import TableContainer from '../Common/TableContainer';
+import TableContainer from '../../common/TableContainer';
 import Recipes_PrimeTable from './Recipes_PrimeTable';
 
 import Flex from '@react-css/flex';
-import { API_URLs, fetchAPI } from '../../API_Handler';
+import { API_URLs, fetchAPI } from '../../../API_Handler';
 
 const AddRecipe = () => {
     //States for User Table

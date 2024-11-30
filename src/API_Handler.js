@@ -1,7 +1,15 @@
+////////////////
 // SETTINGS
 ////////////////
 
-const API_ROOT = "http://localhost:3000"; //Server URL
+/* Choose server URL: */
+
+const API_ROOT = "https://kalkulatorprzepisow-backend.onrender.com"; 
+//const API_ROOT = "http://localhost:3000";
+
+///////////////////////
+// Don't change below
+///////////////////////
 
 const API_URLs = {
     product: {
@@ -25,7 +33,8 @@ const API_URLs = {
     user: {
         login:  {url:'/api/login',method:"POST"},
         logout:  {url:'/api/logout',method:"POST"},
-        register:  {url:'/api/register',method:"POST"}
+        register:  {url:'/api/register',method:"POST"},
+        islogged: {url:'/api/islogged',method:"GET"}
     }
 }
 
@@ -46,10 +55,12 @@ function fetchAPI (api_url,data){
         body: JSON.stringify(data),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
-        }
+        },
+        credentials: 'include'
       }
       :{
-        method: "GET"
+        method: "GET",
+        credentials: 'include'
       }
 
 

@@ -2,6 +2,7 @@ import styles from "./LoginForm.module.css";
 // import "./LoginForm.css";
 import React from "react";
 
+
 class LoginForm extends React.Component{
  
 constructor(props) {
@@ -33,14 +34,13 @@ inputPass_handleChange(event){
     })
 }
 
+// API functions here:
 register_handleclick(){
-// API here
-console.log(this.state.userLogin , this.state.userPassword);
+  this.props.handleRegister(this.state.userLogin , this.state.userPassword );
 }
 
 login_handleclick(){
-  //API here
-    console.log(this.state.userLogin , this.state.userPassword);
+  this.props.handleLogin(this.state.userLogin , this.state.userPassword );
 }
 
 
@@ -67,7 +67,9 @@ return(
 
 <div 
   ref={this.containerRef} 
-  className={styles.container+ (this.state.shrinked ?' '+styles.shrinked : '')} 
+  className={
+    styles.container + (this.state.shrinked ? ' '+styles.shrinked : '')
+  } 
   id="container"
 >
   <input type="radio" name="tab" id="signin" defaultChecked/>

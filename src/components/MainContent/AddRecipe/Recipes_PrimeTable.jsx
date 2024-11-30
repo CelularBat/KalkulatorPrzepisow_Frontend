@@ -1,7 +1,8 @@
 import React from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import IMG_Padlock from "../../assets/padlock.png";
+import IMG_Padlock from "../../../assets/padlock.png";
+import "../../common/PrimeTable.css"
 
 const Recipes_PrimeTable = ({RowsData,handleDeleteRow,handlePortionChange})=>{
 

@@ -9,25 +9,26 @@ import "./AddProduct.css";
 
 import UserProducts_PrimeTable from './UserProducts_PrimeTable';
 import PublicProducts_PrimeTable from './PublicProducts_PrimeTable';
-import TableContainer from '../Common/TableContainer';
-
-import MessageBox from '../Common/MessageBox';
+import TableContainer from '../../common/TableContainer';
 
 import Flex from '@react-css/flex';
-import { API_URLs, fetchAPI } from '../../API_Handler';
+import { API_URLs, fetchAPI } from '../../../API_Handler';
 
-import log from '../../Logger';
+import log from '../../../Logger';
+
+import {UserContext} from '../../../context/UserContext'; 
 
 
 const AddProduct = ({IsInRecipeMode})=>{
+
     // States for User Table
-    const [UserTableData, setUserTableData] = React.useState([]);
+    const [UserTableData, setUserTableData] = React.useState( []);
 
     //States for Public Table
-    const [PublicTableData, setPublicTableData] = React.useState([]);
+    const [PublicTableData, setPublicTableData] = React.useState( []);
 
-    //States for GUI display
-    const [AreTablesExtended,setAreTablesExtended] = React.useState(true);
+    //States for GUI display ,not used yet
+    const [AreTablesExtended,setAreTablesExtended] = React.useState(true); 
 
     // States to handle Product form
     const [EditRowData, setEditRowData] = React. useState({});
@@ -37,18 +38,27 @@ const AddProduct = ({IsInRecipeMode})=>{
     // States to handle Recipe form
     const [AddProductRow,setAddProductRow] = React.useState({});
 
-
-    React.useEffect(()=>{
+    // To re-fetch userdata when logged in
+    const { G_IsUserLoggedIn} = React.useContext(UserContext);
+    
+    function _updateUserProducts(){
         fetchAPI(API_URLs.products.getUserProducts)
         .then( data => {
             setUserTableData(data);  
         });
+    }
 
+    function _updatePublicProducts(){
         fetchAPI(API_URLs.products.getPublicProducts)
         .then( data => {
             setPublicTableData(data);  
         });
-    },[])
+    }
+    // fetch data on first render and when user logged
+    React.useEffect(()=>{
+        _updateUserProducts();
+        _updatePublicProducts();  
+    },[G_IsUserLoggedIn])
 
     /// Product Form Functions
     function onClickEdit(rowData){
@@ -63,6 +73,54 @@ const AddProduct = ({IsInRecipeMode})=>{
         setAddProductRow(rowData);
     }
 
+    ///////////////////////////////////
+    // API Functions
+
+    //////////////////////
+    // Product API
+    //////////////////////
+
+    // Delete product from user database
+    function onClickDelete(rowData){
+        fetchAPI(API_URLs.product.remove ,rowData)
+        .then( data => {
+            if (data.status === 1){
+                // reset form on success
+                log.info(`Product ${rowData.name} was deleted !`);
+                _updateUserProducts();
+            } 
+            else {
+                log.error(data.msg);
+            } 
+        })
+    }
+
+    // Add product to user data base
+    function onProductFormSubmit(event,formData){
+        event.preventDefault();
+        log.debug("Submiting",IsProductFormInEditMode,formData);
+        
+        const url = IsProductFormInEditMode?
+            API_URLs.product.update
+            :API_URLs.product.add;
+
+        fetchAPI(url,formData)
+        .then( data => {
+            if (data.status === 1){
+                // reset form on success
+                setEditRowData({});
+                setIsProductFormInEditMode(false);
+                _updateUserProducts();
+            } 
+            else {
+                log.error(data.msg);
+            } 
+        });
+
+    }
+    //////////////////////
+    // Recipe API
+    //////////////////////
     function onRecipeFormSubmit(rowsData,title,description,photoURL){
         const obj = {
             name: title,
@@ -77,32 +135,22 @@ const AddProduct = ({IsInRecipeMode})=>{
 
         fetchAPI(API_URLs.recipe.add,obj)
         .then( data => {
-            log.info(data);  
+            if (data.status === 1){
+                // reset form on success
+                
+            } 
+            else {
+                log.error(data.msg);
+            }
+             
         });
     }
 
+    ////////////////////////
 
-    // API Functions
+    
 
-    // Delete product from user database
-    function onClickDelete(rowData){
-    }
-
-    // Add product to user data base
-    function onProductFormSubmit(event,formData){
-        event.preventDefault();
-        log.debug("Submiting",IsProductFormInEditMode,formData);
-        
-        const url = IsProductFormInEditMode?
-            API_URLs.product.update
-            :API_URLs.product.add;
-
-        fetchAPI(url,formData)
-        .then( data => {
-            log.info(data);  
-        });
-
-    }
+    
 
 
 

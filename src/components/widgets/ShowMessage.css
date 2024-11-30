@@ -5,7 +5,7 @@
     bottom: -100px; /* Start below the screen */
     left: 50%;
     transform: translateX(-50%);
-    width: 300px;
+    width: calc(min(500px,99vw));
     padding: 20px;
     background-color: #28a745; /* Green background */
 
@@ -15,7 +15,7 @@
     animation: slideUp 5s ease forwards;
 
     font-style: italic;
-    font-size: 2em;
+    font-size: 1.5em;
     text-align: center;
     color: white;
     font-weight: bold;
@@ -29,12 +29,8 @@
       bottom: -100px;
       opacity: 0;
     }
-    30% {
-      bottom: 50%;
-      opacity: 1;
-    }
-    70% {
-      bottom: 50%;
+    20%,80% {
+      bottom: 30%;
       opacity: 1;
     }
     100% {
@@ -43,3 +39,8 @@
     }
   }
   
+  .ShowMessage.error{
+    color:red;
+    background-color: whitesmoke;
+    border: 3px solid red;
+  }

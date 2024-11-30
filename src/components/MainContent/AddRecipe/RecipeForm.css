@@ -101,7 +101,7 @@
     font-family: var(--RecipeForm-font-family);
     font-size: var(--RecipeForm-font-size-small);
 }
-.RecipeForm .AddPhotoURL > button {
+.RecipeForm .AddPhotoURL > button , .btn-recipe{
     background-color: var(--RecipeForm-primary-bg-color);
     color: var(--RecipeForm-text-color);
     padding: 10px 20px;
@@ -119,13 +119,13 @@
 }
 
 /* Active state to simulate pressing the button */
-.RecipeForm .AddPhotoURL > button:active {
+.RecipeForm .AddPhotoURL > button:active  {
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
     transform: translateY(2px);
 }
 
 /* Hover effect for the button */
-.RecipeForm .AddPhotoURL > button:hover {
+.RecipeForm .AddPhotoURL > button:hover, .btn-recipe:hover {
     background-color: var(--RecipeForm-hover-bg-color);
     color: #e0e0e0;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5), -3px -3px 6px rgba(255, 255, 255, 0.25);

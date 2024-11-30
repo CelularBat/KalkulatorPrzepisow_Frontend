@@ -3,7 +3,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import "./PrimeProductsTable.css"
+import "../../common/PrimeTable.css"
 
 
 function PublicProducts_PrimeTable({TableData,defaultRows,

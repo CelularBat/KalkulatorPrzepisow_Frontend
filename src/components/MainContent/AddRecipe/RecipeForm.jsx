@@ -3,8 +3,8 @@ import Recipes_PrimeTable from './Recipes_PrimeTable';
 import AddPhotoURL from './AddPhotoUrl';
 import "./RecipeForm.css"
 
-import {delayFunction} from '../../Utils';
-import log from '../../Logger';
+import {delayFunction} from '../../../Utils';
+import log from '../../../Logger';
 
 const RecipeForm = ({AddProductRow,onRecipeFormSubmit}) => {
 
@@ -104,14 +104,15 @@ const RecipeForm = ({AddProductRow,onRecipeFormSubmit}) => {
                  
             </div>
 
+            <Recipes_PrimeTable {... {RowsData,handleDeleteRow,handlePortionChange}}/>
+
             <div className='btn-recipe-container'>
                 <button className='btn-recipe'
                 onClick={()=>onRecipeFormSubmit(RowsData,Title,Description,PhotoURL)}>
                     Dodaj przepis!
                 </button>
             </div>
-            
-            <Recipes_PrimeTable {... {RowsData,handleDeleteRow,handlePortionChange}}/>
+
             <RecipeSum {...{RowsData}}/>
             
         </div>

@@ -1,7 +1,9 @@
 import React from 'react';
 import './ProductForm.css';
 
+
 function ProductForm2({IsProductFormInEditMode,IsMinimised,EditRowData,onProductFormSubmit}) {
+
   const initialDataState = {
     name: "",
     brand: "",
@@ -23,6 +25,9 @@ function ProductForm2({IsProductFormInEditMode,IsMinimised,EditRowData,onProduct
   React.useEffect(()=>{
     if (IsProductFormInEditMode && EditRowData ){
       setFormData(EditRowData);
+    }
+    else {
+      setFormData(initialDataState);
     }
   },[IsProductFormInEditMode,EditRowData])
 
@@ -52,7 +57,7 @@ function ProductForm2({IsProductFormInEditMode,IsMinimised,EditRowData,onProduct
       break;
 
       case "checkbox":
-        value = event.target.checked;
+        value = checked;
       break;
     }
     
@@ -65,7 +70,6 @@ function ProductForm2({IsProductFormInEditMode,IsMinimised,EditRowData,onProduct
   function cleanForm(){
     setFormData(initialDataState);
   }
-
 
 
   
