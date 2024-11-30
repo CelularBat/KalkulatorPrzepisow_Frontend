@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node src/__autoconfig/__set_autoconfig.cjs false",
     "dev": "vite",
+    "prebuild":"node src/__autoconfig/__set_autoconfig.cjs true",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
