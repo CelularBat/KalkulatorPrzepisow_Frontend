@@ -41,7 +41,7 @@ const RecipeList = () => {
     return (
         <div className='RecipeList'>
             <div className='RecipeList--header'>
-                <h3>hello</h3>
+             
             </div>
             <div className='RecipeList--tables'>
                 <TableContainer className="AddProduct--MyProductsTable-container" 

@@ -1,4 +1,4 @@
-const Logger = (() => {
+const log = (() => {
     /* Settings: Logging levels:
          - DEBUG
          - INFO
@@ -72,5 +72,5 @@ const Logger = (() => {
     return { debug, info, warn, error };
   })();
   
- export default Logger;
+ export default log;
   

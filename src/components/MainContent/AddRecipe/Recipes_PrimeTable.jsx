@@ -1,6 +1,7 @@
 import React from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import InputNumber from '../../common/headless/InputNumber';
 import IMG_Padlock from "../../../assets/padlock.png";
 import "../../common/PrimeTable.css"
 
@@ -11,7 +12,7 @@ const Recipes_PrimeTable = ({RowsData,handleDeleteRow,handlePortionChange})=>{
         brand: {label:"Marka" },
         portion: {label: "Porcja"}
     }
-
+    
     return(
         <DataTable value={RowsData} draggable="false"
         stripedRows  size="small" showGridlines 
@@ -37,14 +38,14 @@ const Recipes_PrimeTable = ({RowsData,handleDeleteRow,handlePortionChange})=>{
            <Column key={"portion"} field={"portion"} header={dataLabels.portion.label} sortable 
            style={{width:"10%"}}
             body={(rowData)=>
-                <input className="RecipeForm--input" type="number" max="9999" min="0" step="0.1"
+                <InputNumber className="RecipeForm--input" max="9999" min="0" step="0.1"
                 style={{
                     width:"100%", color:'red'
                 }}
                 value={rowData.portion} onChange={(event)=>{
                     handlePortionChange(rowData,event.target.value);
                 }}>
-                </input>
+                </InputNumber>
             }/>
 
             <Column header="" style={{width:"10%"}} 

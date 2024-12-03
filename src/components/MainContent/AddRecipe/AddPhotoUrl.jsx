@@ -1,7 +1,11 @@
 import React from "react";
 import "./AddPhotoUrl.css"
 
+
+
 import IMG_trashbin from "../../../assets/trashbin.svg"
+import AddPhotoURLOverlay from "./AddPhotoOverlay";
+import Button from "../../common/Button";
 
 const AddPhotoURL = ({PhotoURL,handleAddPhoto})=>{
     const [IsAddFormOn,setIsAddFormOn] = React.useState(false);
@@ -33,76 +37,25 @@ const AddPhotoURL = ({PhotoURL,handleAddPhoto})=>{
                 :<button type="button" onClick={ ()=>setIsAddFormOn(true) }>Dodaj Zdjęcie!</button>    
             }
               
-            {IsAddFormOn && <AddPhotoURLForm {...{handleForm}}/>}
+            {IsAddFormOn && <AddPhotoURLOverlay {...{handleForm}}/>}
             {IsDeleteFormOn && <AskDeletePhotoForm {...{handleForm}} />}
         </div>
     );
 }
 export default AddPhotoURL;
 
-// Component AddPhotoURLForm
-////////////////////////////
-const AddPhotoURLForm = ({handleForm})=>{
-    const [IsPhotoLoaded,setIsPhotoLoaded] = React.useState(false);
-    const [PhotoURL,setPhotoURL] = React.useState("");
-
-    async function verifyIfImg(url) {
-        return fetch(url, {method: 'HEAD'})
-        .then( (res) => {
-          return res.headers.get('Content-Type').startsWith('image');
-        })
-        .catch( err=> {console.error(err) });
-        
-    }
-
-    async function loadImg(){
-        const isOk = await verifyIfImg(PhotoURL);
-        if (isOk) {
-            setIsPhotoLoaded(true);
-        } else{
-            console.log(isOk)
-        }
-    }
-
-    return (
-        <div className="overlay">
-            <div className="AddPhotoURLForm" >
-                { IsPhotoLoaded &&
-                <div className="img-container">
-                    <img src={PhotoURL}></img>
-                </div>
-                }
-                <div className="url-box">
-                { !IsPhotoLoaded?
-                    <>
-                        <button type="button" onClick={loadImg}>Prześlij</button>
-                        <input type="text" placeholder="Wprowadź Url zdjęcia" 
-                        onChange={(e)=>{ setPhotoURL(e.target.value)}}/>
-                    </>
-                    :<>
-                    <button className="btn-add" type="button" 
-                    onClick={()=>{handleForm("add",PhotoURL)}}>Dodaj</button>
-                    </>
-                }   
-                <button className="btn-cancel" type="button" 
-                onClick={()=>{handleForm("cancel")}}>Anuluj</button>  
-                </div>
-            </div>
-        </div>
-    )
-}
 // Component AskDeletePhotoForm
 //////////////////////////////
 const AskDeletePhotoForm = ({handleForm})=>{
     return (
         <div className="overlay">
-        <div className="AddPhotoURLForm" >
+        <div className="AddPhotoURLOverlay" >
             <div className="url-box">
-              <button className="btn-cancel" type="button" 
-              onClick={()=>{handleForm("remove")}}>Usuń zdjęcie</button>  
+              <Button type="cancel"
+              onClick={()=>{handleForm("remove")}}>Usuń zdjęcie</Button>  
                 <span>Czy na pewno usunąć zdjęcie?</span>
-              <button className="btn-add" type="button" 
-                onClick={()=>{handleForm("cancel")}}>Anuluj</button>
+              <Button type="ok"
+                onClick={()=>{handleForm("cancel")}}>Anuluj</Button>
             </div>
         </div>
     </div>

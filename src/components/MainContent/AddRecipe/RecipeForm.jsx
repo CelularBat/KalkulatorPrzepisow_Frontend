@@ -73,7 +73,9 @@ const RecipeForm = ({AddProductRow,onRecipeFormSubmit}) => {
     function handlePortionChange(rowData,value){
         let restrictedValue = Math.max( Math.min(value , 9999) , 0);
         setRowsData((prev)=>{
-            return prev.map( (e)=> (e._id == rowData._id)?{...e, portion:restrictedValue }:e );
+            return prev.map( (e)=> 
+                (e._id == rowData._id) ? {...e, portion:restrictedValue } :e 
+            );
         });
     }
 

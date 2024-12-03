@@ -1,0 +1,11 @@
+.TableContainer--header{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+
+margin-block:10px;
+}
+
+.TableContainer--header > button{
+    width:30%;    
+}

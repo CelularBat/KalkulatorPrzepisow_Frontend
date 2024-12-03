@@ -1,25 +1,35 @@
 import React from 'react';
+import './TableContainer.css'
+import classNames from 'classnames';
 
 const TableContainer = ({NestedTable,title}) => {
     const [Hidden,setHidden] = React.useState(false);
+    const [FullView,setFullView] = React.useState(false);
     
-    function handleClick(){
+    function handleClickHide(){
         setHidden(prev=>!prev);
     }
+    function handleClickFullView(){
+        setFullView(prev=>!prev);
+    }
+    
     return (
-        <div>
-            <div style={{
-                display:"flex", flexDirection:"row", justifyContent:"space-between",
-                marginBlock:"10px"
-            }}>
-                <button type="button" onClick={handleClick} style={{
-                    width:'30%'
-                }}>
-                    {Hidden?"▼ Rozwiń":"▲ Zwiń"}</button>
+        <div className={classNames("TableContainer", {fullView: FullView})}>
+            <div className="TableContainer--header">
+
+                <button type="button" onClick={(handleClickHide)} >
+                    {Hidden?"▼ Rozwiń":"▲ Zwiń"}
+                </button>
+
                 <h3 style={{
                     marginRight:'auto', marginLeft:"30px"
                 }}>
-                    {title}</h3>
+                    {title}
+                </h3>
+
+                <button type="button" onClick={handleClickFullView} >
+                    {FullView?"🗗 Maksymalizuj":"🗖 Powrót"}
+                </button>
                 
             </div>
             {!Hidden && NestedTable}

@@ -20,7 +20,7 @@ const LOGGING_LEVEL = "DEBUG";
 /* Don't touch below*/
 
 // This global variable is set in npm scripts in package.json
-import IS_DEPLOYMENT from "./autoconfig/__autoconfig_vars"
+import IS_DEPLOYMENT from "./__autoconfig/__autoconfig_vars"
 
 const API_ROOT = IS_DEPLOYMENT ? DEPLOY_API_ROOT : DEV_API_ROOT;
 

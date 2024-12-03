@@ -27,4 +27,4 @@ const GlobalContextProvider = ({children})=>{
 }
 
 
-export {GlobalContextProvider,GetMsgContext,SetMsgContext};
+export {GetMsgContext,SetMsgContext};
