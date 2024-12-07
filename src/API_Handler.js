@@ -1,15 +1,4 @@
-////////////////
-// SETTINGS
-////////////////
-
-/* Choose server URL: */
-
-//const API_ROOT = "https://kalkulatorprzepisow-backend.onrender.com"; 
-const API_ROOT = "http://localhost:3000";
-
-///////////////////////
-// Don't change below
-///////////////////////
+import { API_ROOT } from "./config";
 
 const API_URLs = {
     product: {
