@@ -17,4 +17,4 @@ const UserContextProvider = ({children})=>{
     );
 }
 
-export {UserContext};
+export {UserContextProvider,UserContext};

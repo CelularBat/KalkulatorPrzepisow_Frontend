@@ -6,6 +6,7 @@ import {UserContext} from '../../../context/UserContext';
 
 import TableContainer from '../../common/TableContainer';
 import UserRecipes_PrimeTable from './UserRecipes_PrimeTable';
+import { SetMsgContext } from '../../../context/GlobalContext';
 
 
 
@@ -14,6 +15,7 @@ const RecipeList = () => {
     const [PublicRecipesData,setPublicRecipesData] = React.useState([]);
 
     const { G_IsUserLoggedIn} = React.useContext(UserContext);
+    const {showMsg} = React.useContext(SetMsgContext);
 
     React.useEffect( ()=>{
         _updateUserRecipes();
@@ -34,7 +36,17 @@ const RecipeList = () => {
         });
     }
 
+    function handleDeleteRecipe(rowData){
+        fetchAPI(API_URLs.recipe.remove,rowData)
+        .then( msg => {
+            showMsg(msg.msg,msg.status);
+            _updateUserRecipes();
+        });
+    }
 
+    function handleEditRecipe(){
+
+    }
 
 
 
@@ -48,6 +60,7 @@ const RecipeList = () => {
                         title="Moje przepisy:"
                         NestedTable={
                             <UserRecipes_PrimeTable TableData={UserRecipesData} defaultRows={5}
+                            {...{handleDeleteRecipe,handleEditRecipe}}
                     
                             />
                         }

@@ -11,15 +11,17 @@ const GlobalContextProvider = ({children})=>{
 
     const [G_ShowMsg,setG_ShowMsg] = useState("Witaj !");
     const [G_ShowMsg_Type,setG_ShowMsg_Type] = useState(1);
+    const [G_reRenderingFlag,setG_reRenderingFlag] = React.useState(false);
 
     function showMsg(text,type=1){
         setG_ShowMsg(text);
         setG_ShowMsg_Type(type);
+        setG_reRenderingFlag(prev=>!prev)
     }
 
     return(
         <SetMsgContext.Provider value={{showMsg}}>
-        <GetMsgContext.Provider value={{G_ShowMsg,G_ShowMsg_Type}}>    
+        <GetMsgContext.Provider value={{G_ShowMsg,G_ShowMsg_Type,G_reRenderingFlag}}>    
                 {children}    
         </GetMsgContext.Provider>  
         </SetMsgContext.Provider>
@@ -27,4 +29,4 @@ const GlobalContextProvider = ({children})=>{
 }
 
 
-export {GetMsgContext,SetMsgContext};
+export {GlobalContextProvider,GetMsgContext,SetMsgContext};

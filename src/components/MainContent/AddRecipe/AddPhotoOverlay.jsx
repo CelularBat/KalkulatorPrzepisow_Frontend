@@ -4,6 +4,7 @@ import './AddPhotoUrlOverlay.css'
 import log from "../../../Logger";
 import { SetMsgContext } from "../../../context/GlobalContext";
 import Button from "../../common/Button";
+import { fetchAPI, API_URLs } from "../../../API_Handler";
 
 
 // Component AddPhotoURLForm
@@ -14,23 +15,19 @@ const AddPhotoURLOverlay = ({handleForm})=>{
 
     const {showMsg} = React.useContext(SetMsgContext);
 
-    async function verifyIfImg(url) {
-        return fetch(url, {method: 'HEAD'})
-        .then( (res) => {
-          return res.headers.get('Content-Type').startsWith('image');
-        })
-        .catch( err=> {console.error(err) });
-        
-    }
-
     async function loadImg(){
-        const isOk = await verifyIfImg(PhotoURL);
+        const req = await fetchAPI(API_URLs.helper.verifyimg,{img: PhotoURL});
+        const isOk = req.status == 1 && req.result == true; 
+      
         if (isOk) {
             setIsPhotoLoaded(true);
         } 
-        else{
+        else if (req.status == 1){
             log.info("Wrong image url");
             showMsg("Wrong image url",0);
+        } else
+        {
+            showMsg(req.result,0); // error msg
         }
     }
 

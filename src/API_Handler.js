@@ -35,6 +35,9 @@ const API_URLs = {
         logout:  {url:'/api/logout',method:"POST"},
         register:  {url:'/api/register',method:"POST"},
         islogged: {url:'/api/islogged',method:"GET"}
+    },
+    helper:{
+        verifyimg:  {url:'/api/verifyimg',method:"POST"},
     }
 }
 

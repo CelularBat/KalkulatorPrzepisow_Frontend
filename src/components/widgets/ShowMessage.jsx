@@ -5,25 +5,32 @@ import "./ShowMessage.css";
 import classNames from 'classnames';
 
 const ShowMessage = () => {
-  const  {G_ShowMsg, G_ShowMsg_Type}  = React.useContext(GetMsgContext);
+  const  {G_ShowMsg, G_ShowMsg_Type,G_reRenderingFlag}  = React.useContext(GetMsgContext);
   const {showMsg}  = React.useContext(SetMsgContext);
   const [IsVisible, setIsVisible] = React.useState(false);
   const isRunningRef = React.useRef(false); // Ref to prevent re-triggering
+  const timeOutRef = React.useRef(false);
+ 
 
   React.useEffect(() => {
     if (G_ShowMsg) {
-      setIsVisible(true);
-      isRunningRef.current = true; // Mark as running
+      if (!(isRunningRef.current)){
+        setIsVisible(true);
+        isRunningRef.current = true; // Mark as running
+      } 
+      else {  // PopUp is running, need to reset
+        clearTimeout(timeOutRef.current);
+      }
       
-      const timeout = setTimeout(() => {
+      
+      timeOutRef.current = setTimeout(() => {
         setIsVisible(false);
         showMsg(""); 
         isRunningRef.current = false; // Mark as done
-      }, 5000);
+      }, 5000);  
 
-      
     }
-  }, [G_ShowMsg]);
+  }, [G_ShowMsg,G_ShowMsg_Type,G_reRenderingFlag]);
 
   // Msg types are defined here, can be expanded in the future.
   // Msg style for each class in defined in css
@@ -38,11 +45,15 @@ const ShowMessage = () => {
     break;
   }
 
+
   return (
     IsVisible && (
-      <div className={classNames("ShowMessage",styleClass)}>
-        {G_ShowMsg}
-      </div>
+      <div
+      key={G_reRenderingFlag} // Force re-render when the message changes
+      className={classNames("ShowMessage", styleClass)}
+    >
+      {G_ShowMsg}
+    </div>
     )
   );
 };

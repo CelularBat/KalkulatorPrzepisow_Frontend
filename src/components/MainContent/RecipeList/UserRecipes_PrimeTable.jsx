@@ -10,7 +10,7 @@ import IMG_Public from "../../../assets/public.png";
 
 
 function UserRecipes_PrimeTable({TableData,defaultRows,
-    onClickEdit,onClickDelete
+    handleDeleteRecipe,handleEditRecipe
     }) {
 
     const dataLabels = {
@@ -34,8 +34,11 @@ function UserRecipes_PrimeTable({TableData,defaultRows,
     //Action keys column
     const actionColumnBody = (rowData,options)=>
         <ActionKeysTemplate rowData={rowData}
-        onClickEdit={onClickEdit} onClickDelete={onClickDelete}
+        {...{handleDeleteRecipe,handleEditRecipe}}
         />
+    
+    const photoColumnBody = (rowData,options)=>
+        <PhotoTemplate rowData={rowData}/>
 
 
 
@@ -46,7 +49,7 @@ function UserRecipes_PrimeTable({TableData,defaultRows,
     filterDisplay="row" filters={filters}
     selectionMode="single"
     >   
-       
+        <Column header="Zdjęcie" body={ photoColumnBody} />       
         {initColumns}
         <Column header="" body={ actionColumnBody} />
         
@@ -54,12 +57,21 @@ function UserRecipes_PrimeTable({TableData,defaultRows,
     );
 }
 
+const PhotoTemplate = ({rowData})=>{
+    const photo= (rowData?.photos && rowData?.photos.length > 0) ? rowData.photos[0] : undefined ;
 
-const ActionKeysTemplate = ({rowData,onClickEdit,onClickDelete})=>{
+    return photo?(
+        <div style={{width:"100%",height:"100%",overfloe:"hidden"}}>
+            <img src={photo} style={{width:"100%",height:"auto",overfloe:"hidden"}}/>
+        </div>      
+    ) : null;
+}
+
+const ActionKeysTemplate = ({rowData,handleDeleteRecipe,handleEditRecipe})=>{
     return(
         <div style={{gap:"5px", display:"Flex", flexDirection:"column"}}>
-            <button className="UserTable--button edit-button" onClick={()=>onClickEdit(rowData)}>✎</button>
-            <button className="UserTable--button delete-button" onClick={()=>onClickDelete(rowData)}>X</button>
+            <button className="UserTable--button edit-button" onClick={()=>handleEditRecipe(rowData)}>✎</button>
+            <button className="UserTable--button delete-button" onClick={()=>handleDeleteRecipe(rowData)}>X</button>
         </div>      
     )
 }

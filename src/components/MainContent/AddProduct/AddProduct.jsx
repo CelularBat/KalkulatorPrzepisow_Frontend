@@ -125,7 +125,7 @@ const AddProduct = ({IsInRecipeMode})=>{
         const obj = {
             name: title,
             description: description,
-            photo: photoURL,
+            photos: [photoURL],
             productsList: rowsData.map((rowData)=>({
                 product: rowData._id ,
                 portion: rowData.portion
