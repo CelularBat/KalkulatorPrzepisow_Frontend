@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import log from "../../Logger";
+import log from "../../../Logger";
 import "./Button.css"
 
 

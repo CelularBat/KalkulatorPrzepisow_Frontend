@@ -1,15 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Recipes_PrimeTable from './Recipes_PrimeTable';
 import AddPhotoURL from './AddPhotoUrl';
 import "./RecipeForm.css"
 
 import RecipeSumTable from './RecipeSumTable';
 
-import {delayFunction} from '../../../Utils';
-import log from '../../../Logger';
+import {delayFunction} from '../../../../Utils';
+import log from '../../../../Logger';
+import { EditRecipeContext } from '../../../../context/EditRecipeContext';
+import AskPopUp from '../../../common/lib/AskPopUp';
 
 
-const RecipeForm = ({AddProductRow,onRecipeFormSubmit}) => {
+
+
+
+const RecipeForm = ({AddProductRow,onRecipeFormSubmit,onRecipeFormUpdate}) => {
 
     const [RowsData,setRowsData] = React.useState([]);
     const [PhotoURL,setPhotoURL] = React.useState("");
@@ -18,6 +23,9 @@ const RecipeForm = ({AddProductRow,onRecipeFormSubmit}) => {
 
     const [IsDataLoaded,setIsDataLoaded] = React.useState(false);
 
+    const {G_IsFormRecipeInEditMode,setG_IsFormRecipeInEditMode,G_EditRecipeData} = React.useContext(EditRecipeContext);
+
+    const [ShowPopUpClean,setShowPopUpClean] = React.useState(false);
     // On edit save recipe to local storage
     React.useEffect(()=>{
         if (RowsData.length > 0) {
@@ -33,21 +41,32 @@ const RecipeForm = ({AddProductRow,onRecipeFormSubmit}) => {
     },[RowsData,PhotoURL,Title,Description]);
 
     
-    // On init load recipe from local storage
+    // On init load recipe from local storage 
+    // OR load recipe to edit if button "edit recipe" was clicked on recipe list
     React.useEffect(()=>{
-        const tempCopy = localStorage.getItem('tempRecipe');
-        const tempCopyInfo = JSON.parse(localStorage.getItem('tempRecipeInfo'));
-        if (tempCopy !== null){
-            setRowsData(JSON.parse(tempCopy));
-            setTitle(tempCopyInfo.title);
-            setDescription(tempCopyInfo.description);
-            setPhotoURL(tempCopyInfo.photoURL);
+        if (G_IsFormRecipeInEditMode && G_EditRecipeData){
+            setRowsData(G_EditRecipeData.productsList);
+            setTitle(G_EditRecipeData.name);
+            setDescription(G_EditRecipeData.description);
+            if (G_EditRecipeData.photos.length > 0){
+                setPhotoURL(G_EditRecipeData.photos[0]);
+            }
+        } 
+        else{
+            const tempCopy = localStorage.getItem('tempRecipe');
+            const tempCopyInfo = JSON.parse(localStorage.getItem('tempRecipeInfo'));
+            if (tempCopy !== null){
+                setRowsData(JSON.parse(tempCopy));
+                setTitle(tempCopyInfo.title);
+                setDescription(tempCopyInfo.description);
+                setPhotoURL(tempCopyInfo.photoURL);
+            }
         }
         setIsDataLoaded(true);
     },[]);
 
     React.useEffect(()=>{
-        // check if products isn't already in the array
+        // check if product isn't already in the array
         if (IsDataLoaded && AddProductRow._id && !RowsData.find(e=>e._id === AddProductRow._id) ){ 
             log.debug("Adding row",AddProductRow);
            
@@ -86,6 +105,20 @@ const RecipeForm = ({AddProductRow,onRecipeFormSubmit}) => {
             setPhotoURL(url);  
     }
 
+    function onRecipeCancelEdit(){
+        setG_IsFormRecipeInEditMode(false);
+    }
+
+    function onCleanForm(answer){
+        if (answer){
+            setRowsData([]);
+            setTitle("");
+            setDescription("");
+            setPhotoURL("");
+        }
+        setShowPopUpClean(false);
+    }
+
     return (
         
         <div className='RecipeForm'>
@@ -112,13 +145,39 @@ const RecipeForm = ({AddProductRow,onRecipeFormSubmit}) => {
             <Recipes_PrimeTable {... {RowsData,handleDeleteRow,handlePortionChange}}/>
 
             <div className='btn-recipe-container'>
+            {G_IsFormRecipeInEditMode?
+                <>
+                    <button className='btn-recipe'
+                    onClick={()=>onRecipeFormUpdate(G_EditRecipeData._id, RowsData,Title,Description,PhotoURL)}>
+                        Aktualizuj przepis
+                    </button>
+ 
+                    <button className='btn-recipe btn-cancel'
+                    onClick={onRecipeCancelEdit}>
+                        Anuluj
+                    </button>   
+                </>                   
+            :
                 <button className='btn-recipe'
                 onClick={()=>onRecipeFormSubmit(RowsData,Title,Description,PhotoURL)}>
                     Dodaj przepis!
                 </button>
+            }
             </div>
+   
+
+            
 
             <RecipeSumTable {...{RowsData}}/>
+
+            <button className='btn-recipe btn-cancel'
+                onClick={()=>setShowPopUpClean(true)}>
+                    Wyczyść wszystko!
+            </button>
+            <AskPopUp callBack={onCleanForm} isShown={ShowPopUpClean}
+             question="Wyczyścić wszystko?" />
+
+
             
         </div>
     );

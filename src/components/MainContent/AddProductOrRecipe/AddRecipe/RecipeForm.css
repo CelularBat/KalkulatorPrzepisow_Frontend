@@ -118,6 +118,9 @@
     position: relative;
 }
 
+.RecipeForm .btn-cancel{
+    background-color: red;
+}
 /* Active state to simulate pressing the button */
 .RecipeForm .AddPhotoURL > button:active  {
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);

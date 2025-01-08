@@ -3,9 +3,11 @@ import "./AddPhotoUrl.css"
 
 
 
-import IMG_trashbin from "../../../assets/trashbin.svg"
+import IMG_trashbin from "assets/trashbin.svg"
+
+
 import AddPhotoURLOverlay from "./AddPhotoOverlay";
-import Button from "../../common/Button";
+import Button from "../../../common/lib/Button";
 
 const AddPhotoURL = ({PhotoURL,handleAddPhoto})=>{
     const [IsAddFormOn,setIsAddFormOn] = React.useState(false);
@@ -48,7 +50,7 @@ export default AddPhotoURL;
 //////////////////////////////
 const AskDeletePhotoForm = ({handleForm})=>{
     return (
-        <div className="overlay">
+    <div className="overlay">
         <div className="AddPhotoURLOverlay" >
             <div className="url-box">
               <Button type="cancel"

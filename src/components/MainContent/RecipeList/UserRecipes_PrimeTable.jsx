@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { FilterMatchMode } from 'primereact/api';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "../../common/PrimeTable.css"
 

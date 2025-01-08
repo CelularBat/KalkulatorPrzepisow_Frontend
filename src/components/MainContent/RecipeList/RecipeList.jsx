@@ -7,7 +7,7 @@ import {UserContext} from '../../../context/UserContext';
 import TableContainer from '../../common/TableContainer';
 import UserRecipes_PrimeTable from './UserRecipes_PrimeTable';
 import { SetMsgContext } from '../../../context/GlobalContext';
-
+import { EditRecipeContext } from '../../../context/EditRecipeContext';
 
 
 const RecipeList = () => {
@@ -16,6 +16,8 @@ const RecipeList = () => {
 
     const { G_IsUserLoggedIn} = React.useContext(UserContext);
     const {showMsg} = React.useContext(SetMsgContext);
+    const {setG_IsFormRecipeInEditMode, setG_EditRecipeData,setG_EditRecipeID } = React.useContext(EditRecipeContext);
+    
 
     React.useEffect( ()=>{
         _updateUserRecipes();
@@ -44,8 +46,26 @@ const RecipeList = () => {
         });
     }
 
-    function handleEditRecipe(){
+    function handleEditRecipe(rowData){
+        // function to flat productList: [product:{name:'n'...},portion:100] into [name:'n'... ,portion:100]
+        function flattenProducts(rowData){
+            const flatProducts = rowData.productsList.map ((p) => { 
+                delete p._id;
+              return({
+                ...p.product,
+                portion: p.portion,
+              }); 
+            })
 
+            return {...rowData,
+                productsList: flatProducts
+            }
+        }
+
+        const flatRowData = flattenProducts(rowData)
+        setG_IsFormRecipeInEditMode(true);
+        setG_EditRecipeData(flatRowData);
+        setG_EditRecipeID(rowData._id)
     }
 
 
@@ -57,14 +77,12 @@ const RecipeList = () => {
             </div>
             <div className='RecipeList--tables'>
                 <TableContainer className="AddProduct--MyProductsTable-container" 
-                        title="Moje przepisy:"
-                        NestedTable={
-                            <UserRecipes_PrimeTable TableData={UserRecipesData} defaultRows={5}
-                            {...{handleDeleteRecipe,handleEditRecipe}}
-                    
-                            />
-                        }
-                />
+                title="Moje przepisy:"
+                >        
+                    <UserRecipes_PrimeTable TableData={UserRecipesData} defaultRows={5}
+                    {...{handleDeleteRecipe,handleEditRecipe}}
+                    />
+                </TableContainer>
             </div>
 
         </div>

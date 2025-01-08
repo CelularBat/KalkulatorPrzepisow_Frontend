@@ -5,7 +5,7 @@
     align-items: center;
     scale: 1.6;
     position: absolute;
-    z-index: -999;
+    top:30%;
   }
   
   #pizza {

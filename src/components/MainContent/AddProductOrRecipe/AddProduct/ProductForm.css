@@ -1,0 +1,42 @@
+
+  
+  .ProductForm {
+
+    background: linear-gradient(90deg, #e27474, #D5D531, #008000);
+    width: auto;
+    max-width: 420px;
+    border: solid 3px black;
+    border-radius: 25px;
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+  
+    font-size: 1.1vw;
+  }
+  
+  .ProductForm > label[for] {
+    text-align: right;   
+  }
+  .ProductForm > label > input{
+    border-bottom: solid 2px bisque;
+    border-right: solid 2px bisque;
+  }
+  .ProductForm > label > input[type=number] {
+    width: 50%;
+    max-width: 60px;
+  }
+
+  .ProductForm > label > input[type=text] {
+    width: 50%;
+    max-width: 200px;
+  }
+
+  .ProductForm > p{
+    text-align: right;
+    margin-block: 5px;
+  }
+  
+
+  

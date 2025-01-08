@@ -4,6 +4,13 @@ import React, { createContext, useState } from 'react';
 // So getValue ans setValue were separated to 2 different contexts so setting msg won't update
 // the component which called it (and all other callers)
 
+/*  Usage: 
+ import {SetMsgContext} from GlobalContext
+ const {showMsg} = React.usecontext(SetMsgContext)
+
+    showMsg("To jest wiadomość",1);
+*/
+
 const GetMsgContext = createContext(null);
 const SetMsgContext = createContext(null);
 

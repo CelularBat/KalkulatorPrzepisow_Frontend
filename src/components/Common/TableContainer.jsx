@@ -2,7 +2,7 @@ import React from 'react';
 import './TableContainer.css'
 import classNames from 'classnames';
 
-const TableContainer = ({NestedTable,title}) => {
+const TableContainer = ({children,title}) => {
     const [Hidden,setHidden] = React.useState(false);
     const [FullView,setFullView] = React.useState(false);
     
@@ -32,7 +32,7 @@ const TableContainer = ({NestedTable,title}) => {
                 </button>
                 
             </div>
-            {!Hidden && NestedTable}
+            {!Hidden && children}
         </div>
     );
 };

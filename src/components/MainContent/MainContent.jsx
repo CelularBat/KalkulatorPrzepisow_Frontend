@@ -1,6 +1,6 @@
-import "./Maincontent.css"
+import "./MainContent.css"
 
-import AddProduct from "./AddProduct/AddProduct";
+import AddProductOrRecipe from "./AddProductOrRecipe/AddProductOrRecipe";
 import MainPage from "./WelcomePage/WelcomePage";
 import RecipeList from "./RecipeList/RecipeList";
 
@@ -12,9 +12,9 @@ let mainContent;
     switch (props.activePageIdx){
         case 0: mainContent = <MainPage />
             break;
-        case 1: mainContent = <AddProduct IsInRecipeMode={false}/>
+        case 1: mainContent = <AddProductOrRecipe IsInRecipeMode={false}/>
             break;
-        case 2: mainContent = <AddProduct IsInRecipeMode={true}/>
+        case 2: mainContent = <AddProductOrRecipe IsInRecipeMode={true}/>
             break;
         case 3: mainContent = <RecipeList />
             break;

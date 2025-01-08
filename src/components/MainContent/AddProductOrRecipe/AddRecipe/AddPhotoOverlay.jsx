@@ -1,10 +1,10 @@
 import React from "react";
 import './AddPhotoUrlOverlay.css'
 
-import log from "../../../Logger";
-import { SetMsgContext } from "../../../context/GlobalContext";
-import Button from "../../common/Button";
-import { fetchAPI, API_URLs } from "../../../API_Handler";
+import log from "../../../../Logger";
+import { SetMsgContext } from "../../../../context/GlobalContext";
+import Button from "../../../common/lib/Button";
+import { fetchAPI, API_URLs } from "../../../../API_Handler";
 
 
 // Component AddPhotoURLForm

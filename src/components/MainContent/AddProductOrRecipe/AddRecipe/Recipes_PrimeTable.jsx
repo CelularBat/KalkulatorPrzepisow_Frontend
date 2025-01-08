@@ -1,9 +1,9 @@
 import React from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import InputNumber from '../../common/headless/InputNumber';
-import IMG_Padlock from "../../../assets/padlock.png";
-import "../../common/PrimeTable.css"
+import InputNumber from 'src/components/common/headless/InputNumber';
+import IMG_Padlock from "assets/padlock.png";
+import "../../../common/PrimeTable.css"
 
 const Recipes_PrimeTable = ({RowsData,handleDeleteRow,handlePortionChange})=>{
 
@@ -38,7 +38,7 @@ const Recipes_PrimeTable = ({RowsData,handleDeleteRow,handlePortionChange})=>{
            <Column key={"portion"} field={"portion"} header={dataLabels.portion.label} sortable 
            style={{width:"10%"}}
             body={(rowData)=>
-                <InputNumber className="RecipeForm--input" max="9999" min="0" step="0.1"
+                <InputNumber className="RecipeForm--input" max="9999" min="0" step="1"
                 style={{
                     width:"100%", color:'red'
                 }}
