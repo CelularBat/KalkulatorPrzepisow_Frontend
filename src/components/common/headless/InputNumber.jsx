@@ -26,10 +26,12 @@ function InputNumber({children,max,min,value,onChange ,...rest}) {
             newValue = Math.max( Math.min(Number(newValue) , max) , min);
             event.target.value= newValue;
         }
+        
         if (onChange) { onChange(event); }
     }
 
     if (!value) value =""; // preventing React from complaining about 'none value'
+    if (value.length > 1 && value[0] === "0") value = value.slice(1);
 
     return (
         <>

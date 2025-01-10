@@ -46,7 +46,10 @@ const RecipeList = () => {
         });
     }
 
+     
     function handleEditRecipe(rowData){
+    /* //Depreciated. Flatting array is now on server side
+
         // function to flat productList: [product:{name:'n'...},portion:100] into [name:'n'... ,portion:100]
         function flattenProducts(rowData){
             const flatProducts = rowData.productsList.map ((p) => { 
@@ -61,10 +64,11 @@ const RecipeList = () => {
                 productsList: flatProducts
             }
         }
-
-        const flatRowData = flattenProducts(rowData)
-        setG_IsFormRecipeInEditMode(true);
+        const flatRowData = flattenProducts(rowData);
         setG_EditRecipeData(flatRowData);
+*/
+        setG_EditRecipeData(rowData);
+        setG_IsFormRecipeInEditMode(true);
         setG_EditRecipeID(rowData._id)
     }
 
@@ -76,10 +80,14 @@ const RecipeList = () => {
              
             </div>
             <div className='RecipeList--tables'>
-                <TableContainer className="AddProduct--MyProductsTable-container" 
-                title="Moje przepisy:"
-                >        
+                <TableContainer title="Moje przepisy:">        
                     <UserRecipes_PrimeTable TableData={UserRecipesData} defaultRows={5}
+                    {...{handleDeleteRecipe,handleEditRecipe}}
+                    />
+                </TableContainer>
+
+                <TableContainer title="Inne przepisy:">        
+                    <UserRecipes_PrimeTable TableData={PublicRecipesData} defaultRows={15}
                     {...{handleDeleteRecipe,handleEditRecipe}}
                     />
                 </TableContainer>

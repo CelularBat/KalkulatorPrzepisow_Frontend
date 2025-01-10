@@ -37,7 +37,7 @@ function ProductForm({IsProductFormInEditMode,EditRowData,onProductFormSubmit}) 
     let {value ,type,name, checked} = event.target;
 
     switch (type){
-      // number is already validated
+      // number is already validated in InputNumber
       case "text":// text validation here
       break;
 
@@ -45,7 +45,23 @@ function ProductForm({IsProductFormInEditMode,EditRowData,onProductFormSubmit}) 
         value = checked;
       break;
     }
-    
+    // Auto kj <-> convertion
+
+    if (name === 'kj'){
+      setFormData((prevData)=>({
+        ...prevData,
+        kj: value,
+        kcal: Math.round(0.2390057361 * value).toFixed(0)
+      }));  
+    }
+    else if (name === 'kcal'){
+      setFormData((prevData)=>({
+        ...prevData,
+        kcal: value,
+        kj: Math.round(4.184 * value).toFixed(0)
+      }));  
+    }
+
     setFormData((prevData)=>({
       ...prevData,
       [name]: value
@@ -120,7 +136,7 @@ const ProductFormRender = ({FormData,handleChange,cleanForm,IsProductFormInEditM
     </label>
 
     <label htmlFor="salt">*Sól: &nbsp;
-    <InputNumber name="salt" id="salt"  step="0.1" min="0" max="100" 
+    <InputNumber name="salt" id="salt" required step="0.1" min="0" max="100" 
     onChange={handleChange} value={FormData.salt } />
     </label>
 

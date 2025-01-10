@@ -1,4 +1,5 @@
 import React from 'react';
+import './RecipeSumTable.css';
 
 const RecipeSumTable = ({RowsData})=>{
     const [Sum,setSum] = React.useState({});

@@ -3,24 +3,29 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { FilterMatchMode } from 'primereact/api';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import "../../common/PrimeTable.css"
+// import "../../common/PrimeTable.css"
 
 import IMG_Padlock from "../../../assets/padlock.png";
 import IMG_Public from "../../../assets/public.png";
+import RecipeSumTable from '../../common/RecipeSumTable';
+
 
 
 function UserRecipes_PrimeTable({TableData,defaultRows,
     handleDeleteRecipe,handleEditRecipe
-    }) {
+}) {
+
+    const [filters, setFilters] = React.useState();
+    const [expandedRows, setExpandedRows] = React.useState(null);
 
     const dataLabels = {
         name: {label:"Nazwa" ,hasFilter:true},
-        description: {label:"Opis" ,hasFilter:false},
+        //description: {label:"Opis" ,hasFilter:false},
         
         
     }
 
-    const [filters, setFilters] = React.useState();
+    
     
     //Main columns
     const initColumns = Object.entries(dataLabels)
@@ -31,16 +36,24 @@ function UserRecipes_PrimeTable({TableData,defaultRows,
        />
     })
     
-    //Action keys column
-    const actionColumnBody = (rowData,options)=>
+    // Custom colums
+
+    const nutritionColumnBody = (rowData)=>{
+        console.log(rowData.productsList)
+        return <RecipeSumTable RowsData={rowData.productsList} />
+    }
+        
+
+    const actionColumnBody = (rowData)=>
         <ActionKeysTemplate rowData={rowData}
         {...{handleDeleteRecipe,handleEditRecipe}}
         />
     
-    const photoColumnBody = (rowData,options)=>
+    const photoColumnBody = (rowData)=>
         <PhotoTemplate rowData={rowData}/>
 
 
+        
 
     return (
     <DataTable value={TableData} 
@@ -48,9 +61,13 @@ function UserRecipes_PrimeTable({TableData,defaultRows,
     paginator rows={defaultRows} rowsPerPageOptions={[5, 10, 25, 50]}
     filterDisplay="row" filters={filters}
     selectionMode="single"
+    rowExpansionTemplate={expansionTemplate} 
+    expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
     >   
-        <Column header="Zdjęcie" body={ photoColumnBody} />       
+        <Column expander={true} style={{ width: '3%' }} />
+        <Column header="Zdjęcie" body={ photoColumnBody} style={{width:"10%"}}/>       
         {initColumns}
+        <Column header="Wartość odżywcza" body={ nutritionColumnBody} />
         <Column header="" body={ actionColumnBody} />
         
     </DataTable>
@@ -78,3 +95,29 @@ const ActionKeysTemplate = ({rowData,handleDeleteRecipe,handleEditRecipe})=>{
 
 
 export default UserRecipes_PrimeTable;
+
+
+const expansionTemplate = (rowData)=>{
+        const ingridients = rowData.productsList.map((item,idx) => { 
+          return(<li key="idx">
+            <b>{item.portion}g</b> {item.name}
+          </li>); 
+        })
+        return(
+            <div style={{display:'flex',flexDirection:'rows',gap:"15px", paddingRight:"20px" , width:"100%", whiteSpace: "pre-wrap"}}>
+                <div>
+                    <h3>Składniki:</h3>
+                    <ul>
+                        {ingridients}
+                    </ul>
+
+                </div>
+                <div style={{flex:1}}>
+                    <h3>Przepis:</h3>
+                    <span>{rowData.description}</span>
+                </div>
+                
+
+            </div>
+        )
+}

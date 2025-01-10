@@ -102,22 +102,31 @@ function  AddProductOrRecipe({IsInRecipeMode}) {
         event.preventDefault();
         log.debug("Submiting",IsProductFormInEditMode,formData);
         
-        const url = IsProductFormInEditMode?
-            API_URLs.product.update
-            :API_URLs.product.add;
+        let url,okMsg,errMsg;
+        if (IsProductFormInEditMode){
+            url = API_URLs.product.update;
+            okMsg = `Produkt ${formData.name} zmieniony !`;
+            errMsg = `Problem z aktualizacją ${formData.name} !`
+        } 
+        else{
+            url = API_URLs.product.add;
+            okMsg = `Produkt ${formData.name} dodany !`;
+            errMsg = `Problem z dodaniem ${formData.name} !`;
+        }
+
 
         fetchAPI(url,formData)
         .then( data => {
             if (data.status === 1){
                 // reset form on success
-                showMsg(`Produkt ${rowData.name} dodany !`);
+                showMsg(okMsg);
                 setEditRowData({});
                 setIsProductFormInEditMode(false);
                 _updateUserProducts();
             } 
             else {
                 log.error(data.msg);
-                showMsg(`Problem z dodaniem ${rowData.name} !`,0);
+                showMsg(errMsg,0);
             } 
         });
     }
@@ -169,7 +178,7 @@ function  AddProductOrRecipe({IsInRecipeMode}) {
             } 
             else {
                 log.error(data.msg);
-                showMsg(`Problem z aktualizowaniem przepisu !`);
+                showMsg(`Problem z aktualizowaniem przepisu !`,0);
             }
             
         });

@@ -3,7 +3,8 @@ import Recipes_PrimeTable from './Recipes_PrimeTable';
 import AddPhotoURL from './AddPhotoUrl';
 import "./RecipeForm.css"
 
-import RecipeSumTable from './RecipeSumTable';
+import RecipeSumTable from '../../../common/RecipeSumTable';
+
 
 import {delayFunction} from '../../../../Utils';
 import log from '../../../../Logger';
