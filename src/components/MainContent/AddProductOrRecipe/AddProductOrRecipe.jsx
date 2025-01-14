@@ -152,7 +152,7 @@ function  AddProductOrRecipe({IsInRecipeMode}) {
             } 
             else {
                 log.error(data.msg);
-                showMsg(`Problem z dodaniem przepisu !`);
+                showMsg(`Problem z dodaniem przepisu !`,0);
             }
             
         });

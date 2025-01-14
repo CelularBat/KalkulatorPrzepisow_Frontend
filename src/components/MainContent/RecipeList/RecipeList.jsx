@@ -5,7 +5,7 @@ import { API_URLs, fetchAPI } from '../../../API_Handler';
 import {UserContext} from '../../../context/UserContext'; 
 
 import TableContainer from '../../common/TableContainer';
-import UserRecipes_PrimeTable from './UserRecipes_PrimeTable';
+import RecipesList_PrimeTable from './RecipeList_PrimeTable';
 import { SetMsgContext } from '../../../context/GlobalContext';
 import { EditRecipeContext } from '../../../context/EditRecipeContext';
 
@@ -81,13 +81,13 @@ const RecipeList = () => {
             </div>
             <div className='RecipeList--tables'>
                 <TableContainer title="Moje przepisy:">        
-                    <UserRecipes_PrimeTable TableData={UserRecipesData} defaultRows={5}
+                    <RecipesList_PrimeTable TableData={UserRecipesData} defaultRows={5}
                     {...{handleDeleteRecipe,handleEditRecipe}}
                     />
                 </TableContainer>
 
-                <TableContainer title="Inne przepisy:">        
-                    <UserRecipes_PrimeTable TableData={PublicRecipesData} defaultRows={15}
+                <TableContainer title="Przepisy użytkowników:">        
+                    <RecipesList_PrimeTable isPublic={true} TableData={PublicRecipesData} defaultRows={15}
                     {...{handleDeleteRecipe,handleEditRecipe}}
                     />
                 </TableContainer>

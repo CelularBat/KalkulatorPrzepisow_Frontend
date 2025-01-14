@@ -2,7 +2,7 @@
   
   .ProductForm {
 
-    background: linear-gradient(90deg, #e27474, #D5D531, #008000);
+    background: linear-gradient(90deg, rgba(226, 116, 116, 0.8), rgba(213, 213, 49, 0.6), rgba(0, 128, 0, 0.4));
     width: auto;
     max-width: 420px;
     border: solid 3px black;
